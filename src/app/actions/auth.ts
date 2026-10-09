@@ -12,7 +12,15 @@ export async function login(fd: FormData) {
     email: str(fd.get("email")).trim().toLowerCase(),
     password: str(fd.get("password")),
   });
-  if (error) redirect(`/login?error=${enc("Wrong email or password.")}`);
+  if (error) {
+    const msg =
+      error.code === "email_not_confirmed"
+        ? "Please confirm your email first. Check your inbox and spam folder, then log in."
+        : error.code === "invalid_credentials"
+          ? "Wrong email or password."
+          : `Could not log in: ${error.message}`;
+    redirect(`/login?error=${enc(msg)}`);
+  }
   redirect("/dashboard");
 }
 
@@ -31,6 +39,9 @@ export async function signup(fd: FormData) {
     options: { data: { full_name: name } },
   });
   if (error) redirect(`/login?mode=signup&error=${enc(error.message)}`);
+  // With email confirmation on, Supabase hides existing accounts by returning a user with no identities.
+  if (data.user && data.user.identities?.length === 0)
+    redirect(`/login?error=${enc("This email is already registered. Log in instead.")}`);
   if (!data.session)
     redirect(`/login?msg=${enc("Check your email to confirm your account, then log in.")}`);
   redirect("/dashboard");
