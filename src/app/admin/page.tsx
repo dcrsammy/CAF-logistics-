@@ -12,10 +12,11 @@ export const metadata: Metadata = { title: "Admin" };
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams: { q?: string; edit?: string; msg?: string; error?: string };
+  searchParams: Promise<{ q?: string; edit?: string; msg?: string; error?: string }>;
 }) {
+  const sp = await searchParams;
   const { supabase } = await requireAdmin();
-  const q = (searchParams.q ?? "").replace(/[,()%*\\]/g, "").trim().slice(0, 60);
+  const q = (sp.q ?? "").replace(/[,()%*\\]/g, "").trim().slice(0, 60);
 
   let query = supabase.from("shipments").select("*").order("created_at", { ascending: false }).limit(100);
   if (q) query = query.or(`tracking_no.ilike.%${q}%,customer_email.ilike.%${q}%,goods.ilike.%${q}%`);
@@ -25,13 +26,13 @@ export default async function AdminPage({
   ]);
 
   const list = (data ?? []) as Shipment[];
-  const current = list.find((s) => s.id === searchParams.edit) ?? list[0];
+  const current = list.find((s) => s.id === sp.edit) ?? list[0];
 
   return (
     <div className="w page">
       <h1>Admin</h1>
-      {searchParams.error && <p className="err" role="alert">{searchParams.error}</p>}
-      {searchParams.msg && <p className="ok" role="status">{searchParams.msg}</p>}
+      {sp.error && <p className="err" role="alert">{sp.error}</p>}
+      {sp.msg && <p className="ok" role="status">{sp.msg}</p>}
       <div className="two">
         <div>
           <form method="get" action="/admin" role="search">

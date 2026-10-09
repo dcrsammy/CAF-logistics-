@@ -7,7 +7,7 @@ const enc = encodeURIComponent;
 const str = (v: FormDataEntryValue | null) => (typeof v === "string" ? v : "");
 
 export async function login(fd: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({
     email: str(fd.get("email")).trim().toLowerCase(),
     password: str(fd.get("password")),
@@ -24,7 +24,7 @@ export async function signup(fd: FormData) {
   if (password.length < 8)
     redirect(`/login?mode=signup&error=${enc("Password must be at least 8 characters.")}`);
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -37,7 +37,7 @@ export async function signup(fd: FormData) {
 }
 
 export async function signOut() {
-  const supabase = createClient();
+  const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/");
 }

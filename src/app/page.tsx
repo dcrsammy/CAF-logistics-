@@ -2,8 +2,8 @@ import Link from "next/link";
 import { requestQuote } from "@/app/actions/quote";
 import { whatsappLink } from "@/lib/site";
 
-export default function Home({ searchParams }: { searchParams: { quote?: string } }) {
-  const q = searchParams.quote;
+export default async function Home({ searchParams }: { searchParams: Promise<{ quote?: string }> }) {
+  const q = (await searchParams).quote;
   return (
     <>
       <div className="w hero">

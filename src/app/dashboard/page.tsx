@@ -9,11 +9,12 @@ import type { Shipment } from "@/lib/types";
 
 export const metadata: Metadata = { title: "My shipments" };
 
-export default async function Dashboard({ searchParams }: { searchParams: { tab?: string } }) {
+export default async function Dashboard({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
+  const sp = await searchParams;
   const { supabase, role } = await requireUser();
   if (role === "admin") redirect("/admin");
 
-  const tab = searchParams.tab && searchParams.tab in TABS ? searchParams.tab : "All";
+  const tab = sp.tab && sp.tab in TABS ? sp.tab : "All";
   const { data } = await supabase.from("shipments").select("*").order("created_at", { ascending: false });
   const list = ((data ?? []) as Shipment[]).filter((s) => TABS[tab](s.status));
 

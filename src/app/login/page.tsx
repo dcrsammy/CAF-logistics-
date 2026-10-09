@@ -4,17 +4,18 @@ import { login, signup } from "@/app/actions/auth";
 
 export const metadata: Metadata = { title: "Log in" };
 
-export default function LoginPage({
+export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: { mode?: string; error?: string; msg?: string };
+  searchParams: Promise<{ mode?: string; error?: string; msg?: string }>;
 }) {
-  const signupMode = searchParams.mode === "signup";
+  const sp = await searchParams;
+  const signupMode = sp.mode === "signup";
   return (
     <div className="w narrow">
       <h1>{signupMode ? "Create your account" : "Log in"}</h1>
-      {searchParams.error && <p className="err" role="alert">{searchParams.error}</p>}
-      {searchParams.msg && <p className="ok" role="status">{searchParams.msg}</p>}
+      {sp.error && <p className="err" role="alert">{sp.error}</p>}
+      {sp.msg && <p className="ok" role="status">{sp.msg}</p>}
       <form className="card" action={signupMode ? signup : login}>
         {signupMode && (
           <>

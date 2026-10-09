@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { Role } from "@/lib/types";
 
 export async function getSession() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

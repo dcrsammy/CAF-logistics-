@@ -11,12 +11,13 @@ export const metadata: Metadata = { title: "Shipment" };
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-export default async function ShipmentPage({ params }: { params: { id: string } }) {
+export default async function ShipmentPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const { supabase, role } = await requireUser();
-  if (!UUID.test(params.id)) notFound();
+  if (!UUID.test(id)) notFound();
 
   // Row level security guarantees customers can only read their own shipments.
-  const { data } = await supabase.from("shipments").select("*").eq("id", params.id).maybeSingle();
+  const { data } = await supabase.from("shipments").select("*").eq("id", id).maybeSingle();
   if (!data) notFound();
   const s = data as Shipment;
 

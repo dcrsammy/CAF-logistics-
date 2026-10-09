@@ -16,7 +16,7 @@ export async function requestQuote(fd: FormData) {
 
   if (!name || !phone || !goods) redirect("/?quote=invalid#quote");
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.from("quote_requests").insert({ name, phone, goods, mode });
   redirect(error ? "/?quote=error#quote" : "/?quote=sent#quote");
 }
