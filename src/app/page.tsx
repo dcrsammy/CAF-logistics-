@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { requestQuote } from "@/app/actions/quote";
 import { whatsappLink } from "@/lib/site";
 
@@ -6,41 +5,29 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
   const q = (await searchParams).quote;
   return (
     <>
-      <div className="w hero">
-        <div>
-          <h1>Ship from Guangzhou to Nigeria and follow every step</h1>
-          <p className="lead">
-            Air and sea freight, customs cleared by us, delivered to your door or ready for pickup.
-          </p>
-          <div className="row">
-            <Link className="btn pri" href="/#quote">
-              Get a quote
-            </Link>
-            <Link className="btn" href="/login">
-              Log in to track
-            </Link>
+      <div className="band">
+        <div className="w hero">
+          <div>
+            <h1>Ship from China to Nigeria. Track every step.</h1>
+            <p className="lead">Air and sea freight from our Guangzhou warehouse, customs cleared, delivered to you.</p>
           </div>
-        </div>
-        <div className="card" aria-label="Example of tracking">
-          <p className="mut small">Example shipment</p>
-          <h3 style={{ margin: "4px 0 14px" }}>CAF-1001</h3>
-          <ol className="tl">
-            <li className="on">Received in Guangzhou</li>
-            <li className="on">Packed and loaded</li>
-            <li className="on">Left China</li>
-            <li>Arrived in Nigeria</li>
-          </ol>
+          <form className="track-card" action="/track" method="get" role="search">
+            <h2 className="h-sm">Track a shipment</h2>
+            <label htmlFor="tn">Tracking number</label>
+            <input id="tn" name="no" placeholder="CAF-1001" required maxLength={40} autoComplete="off" />
+            <button className="btn dark wide">Track</button>
+          </form>
         </div>
       </div>
 
       <section id="services">
         <div className="w">
-          <h2>Services</h2>
+          <h2>Our services</h2>
           <div className="grid">
-            <div className="card"><h3>Air freight</h3><p className="mut">Faster transit for small or urgent goods.</p></div>
-            <div className="card"><h3>Sea freight</h3><p className="mut">Better value for bulk goods.</p></div>
-            <div className="card"><h3>Customs clearance</h3><p className="mut">We clear your goods ourselves in Nigeria.</p></div>
-            <div className="card"><h3>Delivery or pickup</h3><p className="mut">To your door, or collect from us.</p></div>
+            <div className="card"><h3>Express shipping</h3><p className="mut">Fast delivery for urgent parcels.</p></div>
+            <div className="card"><h3>Cargo shipping</h3><p className="mut">For larger shipments from China.</p></div>
+            <div className="card"><h3>Sea shipping</h3><p className="mut">Best value for bulk goods.</p></div>
+            <div className="card"><h3>RMB exchange</h3><p className="mut">Buy RMB to pay your suppliers in China.</p></div>
           </div>
         </div>
       </section>
@@ -49,10 +36,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
         <div className="w">
           <h2>How it works</h2>
           <div className="grid">
-            <div className="card"><h3>1. Send to us</h3><p className="mut">Have your supplier deliver to our Guangzhou warehouse.</p></div>
-            <div className="card"><h3>2. We photograph it</h3><p className="mut">Photos appear in your account when goods arrive.</p></div>
-            <div className="card"><h3>3. Track online</h3><p className="mut">See the status at every stage of the journey.</p></div>
-            <div className="card"><h3>4. Receive</h3><p className="mut">Delivered, or ready for pickup.</p></div>
+            <div className="card"><span className="step">1</span><h3>Add your orders</h3><p className="mut">Create an account and add each order with the store&apos;s tracking number.</p></div>
+            <div className="card"><span className="step">2</span><h3>We match and receive</h3><p className="mut">Parcels arriving at our Guangzhou warehouse are matched to you by tracking number.</p></div>
+            <div className="card"><span className="step">3</span><h3>One tracking number</h3><p className="mut">We pack everything together and issue a single CAF tracking number.</p></div>
+            <div className="card"><span className="step">4</span><h3>Track and receive</h3><p className="mut">Follow the shipment online until it is delivered or ready for pickup.</p></div>
           </div>
         </div>
       </section>
@@ -65,9 +52,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
               Price depends on the weight and type of goods. We reply with a price, usually on WhatsApp.
             </p>
             <p style={{ marginTop: 16 }}>
-              <a href={whatsappLink()} rel="noopener noreferrer" target="_blank">
-                Message us on WhatsApp
-              </a>
+              <a href={whatsappLink()} rel="noopener noreferrer" target="_blank">Message us on WhatsApp</a>
             </p>
           </div>
           {q === "sent" ? (
@@ -91,9 +76,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
                 <option>Sea</option>
                 <option>Not sure</option>
               </select>
-              <p style={{ marginTop: 16 }}>
-                <button className="btn pri">Request quote</button>
-              </p>
+              <p style={{ marginTop: 16 }}><button className="btn dark">Request quote</button></p>
             </form>
           )}
         </div>

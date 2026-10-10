@@ -3,6 +3,10 @@
 Website and customer portal for CAF Logistics, a China to Nigeria freight business (air and sea).
 
 **Features**
+- Customers register each China order with the store's tracking number; the warehouse scans it on arrival and it is matched to the right customer
+- Unidentified parcels are saved as unclaimed and can be assigned later, or claimed automatically when the customer adds the same number
+- Admin packs a customer's received parcels into one shipment and issues a single CAF tracking number
+- Public tracking page (`/track`) shows status and timeline only, with no customer or goods details
 - Public site: services, how it works, quote request form, WhatsApp link
 - Customer accounts: each customer sees only their own shipments, a progress timeline and warehouse photos
 - Admin area: create shipments, update status and weight, add notes, upload photos, read quote requests
@@ -13,7 +17,7 @@ Website and customer portal for CAF Logistics, a China to Nigeria freight busine
 ## Setup
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. Open **SQL Editor**, paste the contents of `supabase/schema.sql` and run it.
+2. Open **SQL Editor** and run `supabase/schema.sql`, then run `supabase/002_incoming_parcels.sql` (new query each time).
 3. In **Authentication > Providers > Email**, keep email sign-in on. For launch, leave "Confirm email" on, and set **Authentication > URL Configuration > Site URL** to your live domain.
 4. Copy `.env.example` to `.env.local` and fill in the Supabase URL and anon key (**Project Settings > API**), plus the WhatsApp number and addresses.
 5. Install and run:

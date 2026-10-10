@@ -5,7 +5,7 @@ import Pill from "@/components/Pill";
 import { requireUser } from "@/lib/auth";
 import { PHOTO_BUCKET, STATUSES } from "@/lib/constants";
 import { fmtDate, whatsappLink } from "@/lib/site";
-import type { Shipment, ShipmentEvent, ShipmentPhoto } from "@/lib/types";
+import type { Parcel, Shipment, ShipmentEvent, ShipmentPhoto } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Shipment" };
 
@@ -21,10 +21,12 @@ export default async function ShipmentPage({ params }: { params: Promise<{ id: s
   if (!data) notFound();
   const s = data as Shipment;
 
-  const [{ data: ev }, { data: ph }] = await Promise.all([
+  const [{ data: ev }, { data: ph }, { data: pc }] = await Promise.all([
     supabase.from("shipment_events").select("*").eq("shipment_id", s.id).order("created_at"),
     supabase.from("shipment_photos").select("*").eq("shipment_id", s.id).order("created_at"),
+    supabase.from("incoming_parcels").select("*").eq("shipment_id", s.id).order("created_at"),
   ]);
+  const parcels = (pc ?? []) as Parcel[];
   const events = (ev ?? []) as ShipmentEvent[];
   const photos = (ph ?? []) as ShipmentPhoto[];
 
@@ -65,6 +67,16 @@ export default async function ShipmentPage({ params }: { params: Promise<{ id: s
               })}
             </ol>
           </div>
+          {parcels.length > 0 && (
+            <div className="card">
+              <h2 className="h-sm">Parcels in this shipment</h2>
+              {parcels.map((p) => (
+                <p key={p.id}>
+                  {p.description} <span className="mut small">· {p.china_tracking_no}</span>
+                </p>
+              ))}
+            </div>
+          )}
           <div className="card">
             <h2 className="h-sm">Photos from the warehouse</h2>
             {signed.length ? (

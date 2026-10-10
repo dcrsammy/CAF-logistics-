@@ -30,7 +30,10 @@ export default async function AdminPage({
 
   return (
     <div className="w page">
-      <h1>Admin</h1>
+      <div className="row center" style={{ justifyContent: "space-between", marginBottom: 18 }}>
+        <h1 style={{ margin: 0 }}>Shipments</h1>
+        <Link className="btn dark" href="/admin/parcels">Receive and pack parcels</Link>
+      </div>
       {sp.error && <p className="err" role="alert">{sp.error}</p>}
       {sp.msg && <p className="ok" role="status">{sp.msg}</p>}
       <div className="two">

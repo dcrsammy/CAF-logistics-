@@ -37,3 +37,23 @@ export interface QuoteRequest {
   mode: string;
   created_at: string;
 }
+
+export interface Parcel {
+  id: string;
+  customer_id: string | null;
+  vendor: string | null;
+  description: string;
+  china_tracking_no: string;
+  status: "expected" | "received" | "packed";
+  received_at: string | null;
+  shipment_id: string | null;
+  created_at: string;
+}
+
+export interface TrackResult {
+  tracking_no: string;
+  mode: string;
+  status: number;
+  updated_at: string;
+  events: { status: number; at: string }[];
+}

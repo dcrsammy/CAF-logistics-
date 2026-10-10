@@ -20,7 +20,10 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
 
   return (
     <div className="w page">
-      <h1>My shipments</h1>
+      <div className="row center" style={{ justifyContent: "space-between", marginBottom: 18 }}>
+        <h1 style={{ margin: 0 }}>My shipments</h1>
+        <Link className="btn" href="/orders">My orders</Link>
+      </div>
       <div className="tabs" role="tablist" aria-label="Filter shipments">
         {Object.keys(TABS).map((t) => (
           <Link

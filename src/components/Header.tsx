@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { signOut } from "@/app/actions/auth";
-import { SITE } from "@/lib/site";
 
 export default async function Header() {
   const { user, role } = await getSession();
@@ -12,28 +11,36 @@ export default async function Header() {
           CAF<span>Logistics</span>
         </Link>
         <nav className="nv" aria-label="Main">
+          <Link href="/track">Track</Link>
           {user ? (
-            <>
-              <span className="mut hid">{user.email}</span>
-              <Link className="btn" href={role === "admin" ? "/admin" : "/dashboard"}>
-                {role === "admin" ? "Admin" : "My shipments"}
-              </Link>
-              <form action={signOut}>
-                <button className="btn">Log out</button>
-              </form>
-            </>
+            role === "admin" ? (
+              <>
+                <Link href="/admin/parcels">Parcels</Link>
+                <Link href="/admin">Shipments</Link>
+              </>
+            ) : (
+              <>
+                <Link href="/orders">My orders</Link>
+                <Link href="/dashboard">My shipments</Link>
+              </>
+            )
           ) : (
             <>
               <Link href="/#services">Services</Link>
               <Link href="/#quote">Get a quote</Link>
-              <Link className="btn pri" href="/login">
-                Log in
-              </Link>
             </>
+          )}
+          {user ? (
+            <form action={signOut}>
+              <button className="btn">Log out</button>
+            </form>
+          ) : (
+            <Link className="btn dark" href="/login">
+              Log in
+            </Link>
           )}
         </nav>
       </div>
-      <span className="sr-only">{SITE.name}</span>
     </header>
   );
 }
