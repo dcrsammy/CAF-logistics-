@@ -8,7 +8,7 @@ export default async function Header() {
     <header className="site-header">
       <div className="w bar">
         <Link href="/" className="logo">
-          CAF<span>Logistics</span>
+          DINMA<span>Logistics</span>
         </Link>
         <nav className="nv" aria-label="Main">
           <Link href="/track">Track</Link>

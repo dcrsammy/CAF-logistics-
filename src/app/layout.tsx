@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "CAF Logistics | Freight from China to Nigeria",
-    template: "%s | CAF Logistics",
+    default: "Dinma Logistics | Freight from China to Nigeria",
+    template: "%s | Dinma Logistics",
   },
   description:
     "Air and sea freight from Guangzhou to Nigeria, with customs clearance, delivery and online shipment tracking.",

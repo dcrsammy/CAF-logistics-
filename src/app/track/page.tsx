@@ -23,7 +23,7 @@ export default async function TrackPage({ searchParams }: { searchParams: Promis
           <h1 style={{ fontSize: 36, marginBottom: 18 }}>Track a shipment</h1>
           <form className="track-row" action="/track" method="get" role="search">
             <label htmlFor="tn" className="sr-only">Tracking number</label>
-            <input id="tn" name="no" placeholder="CAF-1001" defaultValue={no} required maxLength={40} autoComplete="off" />
+            <input id="tn" name="no" placeholder="DNM-1001" defaultValue={no} required maxLength={40} autoComplete="off" />
             <button className="btn dark">Track</button>
           </form>
         </div>
@@ -33,7 +33,7 @@ export default async function TrackPage({ searchParams }: { searchParams: Promis
         {no && !result && (
           <div className="card" role="status">
             <h3>No shipment found for &ldquo;{no}&rdquo;</h3>
-            <p className="mut">Check the number and try again. Tracking numbers start with CAF.</p>
+            <p className="mut">Check the number and try again. Tracking numbers start with DNM.</p>
           </div>
         )}
         {result && (

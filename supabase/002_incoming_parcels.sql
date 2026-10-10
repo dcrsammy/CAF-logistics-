@@ -1,6 +1,6 @@
 -- Run this in the Supabase SQL editor AFTER schema.sql.
 -- Adds: customer-registered incoming parcels (China tracking numbers), matching at the
--- warehouse, packing parcels into one CAF shipment, and public tracking by CAF number.
+-- warehouse, packing parcels into one shipment, and public tracking by tracking number.
 
 create table public.incoming_parcels (
   id uuid primary key default gen_random_uuid(),
@@ -66,7 +66,7 @@ end $$;
 revoke all on function public.register_parcel(text, text, text) from public, anon;
 grant execute on function public.register_parcel(text, text, text) to authenticated;
 
--- Public tracking by CAF tracking number. Returns only status, mode and the timeline
+-- Public tracking by tracking number. Returns only status, mode and the timeline
 -- (no customer details, goods description, notes or photos).
 create or replace function public.track_shipment(p_tracking text)
 returns jsonb language sql stable security definer set search_path = public as $$

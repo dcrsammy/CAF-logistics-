@@ -14,7 +14,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
           <form className="track-card" action="/track" method="get" role="search">
             <h2 className="h-sm">Track a shipment</h2>
             <label htmlFor="tn">Tracking number</label>
-            <input id="tn" name="no" placeholder="CAF-1001" required maxLength={40} autoComplete="off" />
+            <input id="tn" name="no" placeholder="DNM-1001" required maxLength={40} autoComplete="off" />
             <button className="btn dark wide">Track</button>
           </form>
         </div>
@@ -38,7 +38,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
           <div className="grid">
             <div className="card"><span className="step">1</span><h3>Add your orders</h3><p className="mut">Create an account and add each order with the store&apos;s tracking number.</p></div>
             <div className="card"><span className="step">2</span><h3>We match and receive</h3><p className="mut">Parcels arriving at our Guangzhou warehouse are matched to you by tracking number.</p></div>
-            <div className="card"><span className="step">3</span><h3>One tracking number</h3><p className="mut">We pack everything together and issue a single CAF tracking number.</p></div>
+            <div className="card"><span className="step">3</span><h3>One tracking number</h3><p className="mut">We pack everything together and issue a single tracking number.</p></div>
             <div className="card"><span className="step">4</span><h3>Track and receive</h3><p className="mut">Follow the shipment online until it is delivered or ready for pickup.</p></div>
           </div>
         </div>

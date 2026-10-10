@@ -1,4 +1,4 @@
--- CAF Logistics database schema. Run once in the Supabase SQL editor.
+-- Dinma Logistics database schema. Run once in the Supabase SQL editor.
 
 -- ───────────── Tables ─────────────
 create table public.profiles (
