@@ -11,6 +11,9 @@ export const SITE = {
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
 };
 
+const rmb = digits(process.env.NEXT_PUBLIC_RMB_WHATSAPP) || "2348164257778";
+export const rmbLink = () => `https://wa.me/${rmb}`;
+
 export const whatsappLink = () =>
   SITE.whatsapp ? `https://wa.me/${SITE.whatsapp}` : "https://wa.me/";
 

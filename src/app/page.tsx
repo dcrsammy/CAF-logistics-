@@ -1,5 +1,5 @@
 import { requestQuote } from "@/app/actions/quote";
-import { whatsappLink } from "@/lib/site";
+import { rmbLink, whatsappLink } from "@/lib/site";
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ quote?: string }> }) {
   const q = (await searchParams).quote;
@@ -27,7 +27,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
             <div className="card"><h3>Express shipping</h3><p className="mut">Fast delivery for urgent parcels.</p></div>
             <div className="card"><h3>Cargo shipping</h3><p className="mut">For larger shipments from China.</p></div>
             <div className="card"><h3>Sea shipping</h3><p className="mut">Best value for bulk goods.</p></div>
-            <div className="card"><h3>RMB exchange</h3><p className="mut">Buy RMB to pay your suppliers in China.</p></div>
+            <div className="card"><h3>RMB exchange</h3><p className="mut">Need RMB to pay your suppliers in China?</p><p><a href={rmbLink()} rel="noopener noreferrer" target="_blank">Contact us on WhatsApp</a></p></div>
           </div>
         </div>
       </section>
